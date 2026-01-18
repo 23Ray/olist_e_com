@@ -100,6 +100,10 @@ Business-aggregated, BI-ready tables:
 
 Built using idempotent batch SQL and served via Databricks SQL Warehouse.
 
+## Example Queries
+SELECT * FROM olist_db.gold.daily_sales WHERE order_date > '2025-01-01';
+
+
 ## Optimization & Maintenance
 
 A dedicated Lakeflow job handles platform maintenance:
