@@ -1,0 +1,34 @@
+resources:
+  jobs:
+    OList_Weekly_Optimize:
+      name: OList_Weekly_Optimize
+      email_notifications:
+        on_success:
+          - sahasrak2000@gmail.com
+        on_failure:
+          - sahasrak2000@gmail.com
+      trigger:
+        pause_status: UNPAUSED
+        periodic:
+          interval: 1
+          unit: WEEKS
+      tasks:
+        - task_key: Bronze_Layer_Optimize
+          notebook_task:
+            notebook_path: /Workspace/Users/sahasrak2000@gmail.com/olist_e_com/Notebooks/Optimize_Layer/optimize_bronze_landing
+            source: WORKSPACE
+        - task_key: Silver_Layer_Optimize
+          depends_on:
+            - task_key: Bronze_Layer_Optimize
+          notebook_task:
+            notebook_path: /Workspace/Users/sahasrak2000@gmail.com/olist_e_com/Notebooks/Optimize_Layer/optimize_silver
+            source: WORKSPACE
+        - task_key: Gold_Layer_Optimize
+          depends_on:
+            - task_key: Silver_Layer_Optimize
+          notebook_task:
+            notebook_path: /Workspace/Users/sahasrak2000@gmail.com/olist_e_com/Notebooks/Optimize_Layer/optimize_gold
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

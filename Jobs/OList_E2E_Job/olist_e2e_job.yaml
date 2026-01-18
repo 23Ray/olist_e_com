@@ -1,0 +1,56 @@
+resources:
+  jobs:
+    OList_E2E_Job:
+      name: OList_E2E_Job
+      email_notifications:
+        on_start:
+          - sahasrak2000@gmail.com
+        on_success:
+          - sahasrak2000@gmail.com
+        on_failure:
+          - sahasrak2000@gmail.com
+      tasks:
+        - task_key: Config_Notebook
+          notebook_task:
+            notebook_path: /Workspace/Users/sahasrak2000@gmail.com/olist_e_com/Notebooks/Config_Notebook
+            source: WORKSPACE
+        - task_key: Ingest_Data
+          depends_on:
+            - task_key: Config_Notebook
+          for_each_task:
+            inputs: "{{tasks.Config_Notebook.values.table_names}}"
+            task:
+              task_key: Bronze_Pipeline
+              notebook_task:
+                notebook_path: /Workspace/Users/sahasrak2000@gmail.com/olist_e_com/Notebooks/Bronze_Layer_Ingestion
+                base_parameters:
+                  catalog_name: "{{tasks.Config_Notebook.values.catalog_name}}"
+                  schema_name: "{{tasks.Config_Notebook.values.schema_name}}"
+                  table_name: "{{input}}"
+                source: WORKSPACE
+        - task_key: Silver_Pipeline
+          depends_on:
+            - task_key: Ingest_Data
+          pipeline_task:
+            pipeline_id: a0de3567-d862-4588-a406-91a5c85d9d9f
+            full_refresh: false
+        - task_key: Gold_Pipeline
+          depends_on:
+            - task_key: Silver_Pipeline
+          notebook_task:
+            notebook_path: /Workspace/Users/sahasrak2000@gmail.com/olist_e_com/Notebooks/Gold_Layer_Aggregation
+            source: WORKSPACE
+        - task_key: Olist_Dashboard
+          depends_on:
+            - task_key: Gold_Pipeline
+          dashboard_task:
+            subscription:
+              subscribers:
+                - user_name: sahasrak2000@gmail.com
+              paused: false
+              custom_subject: OList Dashboard
+            warehouse_id: d0e0cb534395f53b
+            dashboard_id: 01f0ec3059fc11a6803b815eff8725b9
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
