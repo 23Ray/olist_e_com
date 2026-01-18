@@ -1,3 +1,8 @@
+![GitHub stars](https://img.shields.io/github/stars/23Ray/olist_e_com)
+![GitHub language](https://img.shields.io/github/languages/top/23Ray/olist_e_com)
+![Last commit](https://img.shields.io/github/last-commit/23Ray/olist_e_com)
+
+
 # Olist E-Commerce Lakehouse Analytics Platform
 
 A production-grade Databricks Lakehouse implementation using Auto Loader, Delta Live Tables, Unity Catalog, and Lakeflow Jobs to deliver scalable analytics on Brazilian e-commerce data.
