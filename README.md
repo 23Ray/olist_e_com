@@ -2,6 +2,10 @@
 
 A production-grade Databricks Lakehouse implementation using Auto Loader, Delta Live Tables, Unity Catalog, and Lakeflow Jobs to deliver scalable analytics on Brazilian e-commerce data.
 
+
+## DASHBOARD OVERVIEW: 
+![Dashboard Overview](images/OList_Dashboard.png)
+
 ## Architecture Overview
 
 This project follows the Medallion Architecture (Bronze, Silver, Gold) implemented on Databricks using:
@@ -28,6 +32,9 @@ Total datasets ingested: 9
 - product_category_translation
 - geolocation
 
+## ER DIAGRAM: 
+![ER Diagram](images/Olist_er_diagram.png)
+
 ## Repository Structure
 
 configs/
@@ -40,14 +47,15 @@ ETL_Olist/
 - archive_transformations/
 
 Jobs/
-- Lakeflow ingestion jobs
-- Maintenance & optimization jobs
+- ### Lakeflow ingestion jobs
+  ![Lakeflow ingestion job](images/OList_Job_UI.png)
+- ### Maintenance & optimization jobs
+![Maintenance & optimization jobs](images/OList_Job_Optimize_UI.png)
 
 Notebooks/
 - Bronze ingestion notebooks
 - Gold aggregation notebooks
 
-README.md
 
 ## Bronze Layer – Raw Ingestion
 
@@ -114,5 +122,7 @@ Silver & Gold:
 - Spark (PySpark & SQL)
 - Databricks SQL Warehouse
 
+
+## Author: Sahasrak Ray
 
 
